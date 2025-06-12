@@ -1,7 +1,20 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "voicebox",
   "module": "src/index.ts",
   "type": "module",
+  "version": "0.1.0",
+  "description": "A client for the Voicebox API, providing text-to-speech capabilities.",
+  "keywords": [
+    "voicebox",
+    "api",
+    "client",
+    "speech",
+    "text-to-speech",
+    "tts"
+  ],
+  "author": "Yuito Akatsuki <yuito@yuito-it.jp>",
+  "license": "MIT",
   "devDependencies": {
     "@types/bun": "latest"
   },

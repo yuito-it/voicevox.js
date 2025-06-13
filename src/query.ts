@@ -1,4 +1,5 @@
-import { rpc } from "../voicebox/rpc";
+import type { Note, SingingSettings, VoiceSettings } from "./types";
+import { rpc } from "./rpc";
 
 export const getTalkQuery = async (
   text: string,

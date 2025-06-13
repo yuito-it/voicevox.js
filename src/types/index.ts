@@ -1,4 +1,4 @@
-type Mora = {
+export type Mora = {
   text: string;
   consonant: string;
   consonantLength: number;
@@ -7,14 +7,14 @@ type Mora = {
   pitch: number;
 };
 
-type AccentPhrase = {
+export type AccentPhrase = {
   moras: Mora[];
   accent: number;
   pauseMora: Mora;
   isInterrogative: boolean;
 };
 
-type VoiceSettings = {
+export type VoiceSettings = {
   accentPhrases: AccentPhrase[];
   speedScale: number;
   pitchScale: number;
@@ -29,20 +29,20 @@ type VoiceSettings = {
   kana: string;
 };
 
-type Note = {
+export type Note = {
   id?: string | null;
   key: number;
   frameLength: number;
   lyric: string;
 };
 
-type Phoneme = {
+export type Phoneme = {
   phoneme: string;
   frameLength: number;
   noteId: string;
 };
 
-type SingingSettings = {
+export type SingingSettings = {
   f0: number[];
   volume: number[];
   phonemes: Phoneme[];

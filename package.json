@@ -3,7 +3,7 @@
   "name": "voicebox-api-client",
   "module": "src/index.ts",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A client for the Voicebox API, providing text-to-speech capabilities.",
   "keywords": [
     "voicebox",

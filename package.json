@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "voicebox",
+  "name": "voicebox-api-client",
   "module": "src/index.ts",
   "type": "module",
   "version": "0.1.0",

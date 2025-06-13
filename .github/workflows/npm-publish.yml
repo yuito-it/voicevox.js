@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      #- run: bun ci
+      - run: bun run --bun build
       - run: bun test
 
   publish-npm:
@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      #- run: bun ci
+      - run: bun run --bun build
       - run: bun publish
         env:
           NPM_CONFIG_TOKEN: ${{secrets.npm_token}}

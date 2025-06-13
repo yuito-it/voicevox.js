@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist/cjs",
+    "module": "CommonJS",
+    "declaration": false,
+    "target": "ES2024"
+  },
+  "include": ["src"]
+}

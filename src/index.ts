@@ -1,2 +1,2 @@
-export * from "./rpc";
-export * from "./query";
+export * as RPC from "./rpc";
+export * as Query from "./query";

@@ -2,7 +2,10 @@ import axios, { type AxiosInstance } from "axios";
 
 export let rpc: AxiosInstance | undefined;
 
-export const connect = async (baseURL: string): Promise<void> => {
+export const connect = async (
+  baseURL: string,
+  headers?: Record<string, string>
+): Promise<void> => {
   if (baseURL === undefined || baseURL === "") {
     throw new Error("Base URL for Voicebox API is not defined.");
   }
@@ -12,6 +15,7 @@ export const connect = async (baseURL: string): Promise<void> => {
         baseURL,
         headers: {
           "Content-Type": "application/json",
+          ...headers,
         },
       });
     }

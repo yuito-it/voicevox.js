@@ -1,7 +1,7 @@
 export type Mora = {
   text: string;
-  consonant: string;
-  consonantLength: number;
+  consonant: string | null;
+  consonantLength: number | null;
   vowel: string;
   vowelLength: number;
   pitch: number;
@@ -10,7 +10,7 @@ export type Mora = {
 export type AccentPhrase = {
   moras: Mora[];
   accent: number;
-  pauseMora: Mora;
+  pauseMora: Mora | null;
   isInterrogative: boolean;
 };
 
@@ -22,7 +22,7 @@ export type VoiceSettings = {
   volumeScale: number;
   prePhonemeLength: number;
   postPhonemeLength: number;
-  pauseLength: number;
+  pauseLength: number | null;
   pauseLengthScale: number;
   outputSamplingRate: number;
   outputStereo: boolean;

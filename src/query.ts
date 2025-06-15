@@ -105,13 +105,23 @@ export const getSingQuery = async (
   if (speaker < 0) {
     throw new Error("Speaker must be a non-negative integer.");
   }
+  const sendData = notes.map((note) => ({
+    id: note.id?.toString() || null,
+    key: note.key,
+    frame_length: note.frameLength,
+    lyric: note.lyric,
+  }));
   try {
-    const response = await rpc.post("/sing_frame_audio_query", notes, {
-      params: {
-        speaker,
-        core_version: version,
-      },
-    });
+    const response = await rpc.post(
+      "/sing_frame_audio_query",
+      { notes: sendData },
+      {
+        params: {
+          speaker,
+          core_version: version,
+        },
+      }
+    );
     if (response.status !== 200) {
       throw new Error(
         `Voicebox API returned status code ${response.status}(${response.statusText})`

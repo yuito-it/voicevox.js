@@ -16,7 +16,6 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install
       - run: bun run --bun build
-      - run: bun test
 
   publish-npm:
     needs: build

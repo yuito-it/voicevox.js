@@ -17,7 +17,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "bunx tsc -p tsconfig.esm.json && bunx tsc -p tsconfig.cjs.json"
+    "build": "bunx tsgo -p tsconfig.esm.json && bunx tsgo -p tsconfig.cjs.json"
   },
   "keywords": [
     "voicebox",

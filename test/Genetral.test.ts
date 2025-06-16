@@ -17,7 +17,6 @@ test("General Test", async () => {
     query,
     enable_interrogative_upspeak
   );
-  const filePath = "./test/test.wav";
-  await fs.promises.writeFile(filePath, genDate);
+  await fs.promises.writeFile(`${__dirname}/general.wav`, genDate);
   await RPC.disconnect();
 });

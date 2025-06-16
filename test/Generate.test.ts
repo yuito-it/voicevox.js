@@ -4,7 +4,7 @@ import fs from "fs";
 
 test("Generate", async () => {
   await RPC.connect("http://localhost:50021");
-  const speaker = 0;
+  const speaker = 47;
   const generateData = {
     accentPhrases: [
       {
@@ -158,5 +158,5 @@ test("Generate", async () => {
   } else {
     throw new Error("Audio generation failed, expected Buffer type.");
   }
-  fs.writeFileSync("output.wav", audio);
+  fs.writeFileSync(`${__dirname}/generate.wav`, audio);
 });

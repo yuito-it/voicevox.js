@@ -50,3 +50,17 @@ export type SingingSettings = {
   outputSamplingRate: number;
   outputStereo: boolean;
 };
+
+export type SpeakerStyle = {
+  id: number;
+  icon: string;
+  portrait: string;
+  voiceSamples: string[];
+};
+
+export type SpeakerListData = {
+  policy: string;
+  portrait: string;
+  styleInfos: SpeakerStyle[];
+  supportedFeatures?: "ALL" | "SELF_ONLY" | "NOTHING";
+};

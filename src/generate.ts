@@ -1,5 +1,6 @@
 import { rpc } from "./rpc";
 import { VoiceSettings } from "./types";
+import { toSnakeCaseKeys } from "./utils";
 
 export const generate = async (
   speaker: number,
@@ -17,29 +18,7 @@ export const generate = async (
   }
 
   const sendData = {
-    accent_phrases: query.accentPhrases.map((phrase) => ({
-      moras: phrase.moras.map((mora) => ({
-        text: mora.text,
-        consonant: mora.consonant,
-        consonant_length: mora.consonantLength,
-        vowel: mora.vowel,
-        vowel_length: mora.vowelLength,
-        pitch: mora.pitch,
-      })),
-      accent: phrase.accent,
-      pause_mora: phrase.pauseMora
-        ? {
-            text: phrase.pauseMora.text,
-            consonant: phrase.pauseMora.consonant,
-            consonant_length: phrase.pauseMora.consonantLength,
-            vowel: phrase.pauseMora.vowel,
-            vowel_length: phrase.pauseMora.vowelLength,
-            pitch: phrase.pauseMora.pitch,
-          }
-        : null,
-      is_interrogative: phrase.isInterrogative,
-    })),
-
+    accent_phrases: toSnakeCaseKeys(query.accentPhrases),
     speedScale: query.speedScale,
     pitchScale: query.pitchScale,
     intonationScale: query.intonationScale,

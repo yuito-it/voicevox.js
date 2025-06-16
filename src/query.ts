@@ -1,5 +1,6 @@
 import type { Note, SingingSettings, VoiceSettings } from "./types";
 import { rpc } from "./rpc";
+import { toCamelCaseKeys } from "./utils";
 
 export const getTalkQuery = async (
   text: string,
@@ -32,7 +33,8 @@ export const getTalkQuery = async (
         `Voicebox API returned status code ${response.status}(${response.statusText})`
       );
     }
-    return response.data;
+    const data = toCamelCaseKeys(response.data) as VoiceSettings;
+    return data;
   } catch (error) {
     throw new Error(
       `Failed to fetch voice settings from Voicebox API: ${error}`
@@ -74,16 +76,20 @@ export const getTalkQueryWithPreset = async (
     const data = {
       ...response.data,
       accentPhrases: response.data.accent_phrases.map((phrase: any) => ({
-        ...phrase,
+        moras: phrase.moras.map((mora: any) => ({
+          text: mora.text,
+          consonant: mora.consonant,
+          consonantLength: mora.consonant_length,
+          vowel: mora.vowel,
+          vowelLength: mora.vowel_length,
+          pitch: mora.pitch,
+        })),
+        accent: phrase.accent,
         pauseMora: phrase.pause_mora,
         isInterrogative: phrase.is_interrogative,
-        moras: phrase.moras.map((mora: any) => ({
-          ...mora,
-          consonantLength: mora.consonant_length,
-          vowelLength: mora.vowel_length,
-        })),
       })),
     } as VoiceSettings;
+
     return data;
   } catch (error) {
     throw new Error(

@@ -52,15 +52,15 @@ export type SingingSettings = {
 };
 
 export type SpeakerStyle = {
+  name: string;
   id: number;
-  icon: string;
-  portrait: string;
-  voiceSamples: string[];
+  type: "talk" | "singing_teacher" | "frame_decode" | "sing";
 };
 
 export type SpeakerListData = {
-  policy: string;
-  portrait: string;
-  styleInfos: SpeakerStyle[];
+  name: string;
+  speaker_uuid: string;
+  styles: SpeakerStyle[];
+  version: string;
   supportedFeatures?: "ALL" | "SELF_ONLY" | "NOTHING";
 };

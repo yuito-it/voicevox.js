@@ -2,7 +2,9 @@ import { rpc } from "./rpc";
 import { SpeakerListData } from "./types";
 import { toCamelCaseKeys } from "./utils";
 
-export const getSingers = async (version?: string | null) => {
+export const getSingers = async (
+  version?: string | null
+): Promise<SpeakerListData> => {
   if (!rpc) {
     throw new Error(
       "Voicebox API is not connected. Please call connect() first."
@@ -26,7 +28,9 @@ export const getSingers = async (version?: string | null) => {
   }
 };
 
-export const getSpeakers = async (version?: string | null): Promise<any> => {
+export const getSpeakers = async (
+  version?: string | null
+): Promise<SpeakerListData> => {
   if (!rpc) {
     throw new Error(
       "Voicebox API is not connected. Please call connect() first."

@@ -4,7 +4,7 @@ import { toCamelCaseKeys } from "./utils";
 
 export const getSingers = async (
   version?: string | null
-): Promise<SpeakerListData> => {
+): Promise<Array<SpeakerListData>> => {
   if (!rpc) {
     throw new Error(
       "Voicebox API is not connected. Please call connect() first."
@@ -22,7 +22,7 @@ export const getSingers = async (
       );
     }
 
-    return toCamelCaseKeys(response.data) as SpeakerListData;
+    return toCamelCaseKeys(response.data) as Array<SpeakerListData>;
   } catch (error) {
     throw new Error(`Failed to fetch singers: ${error}`);
   }
@@ -30,7 +30,7 @@ export const getSingers = async (
 
 export const getSpeakers = async (
   version?: string | null
-): Promise<SpeakerListData> => {
+): Promise<Array<SpeakerListData>> => {
   if (!rpc) {
     throw new Error(
       "Voicebox API is not connected. Please call connect() first."
@@ -48,7 +48,7 @@ export const getSpeakers = async (
       );
     }
 
-    return toCamelCaseKeys(response.data) as SpeakerListData;
+    return toCamelCaseKeys(response.data) as Array<SpeakerListData>;
   } catch (error) {
     throw new Error(`Failed to fetch speaker: ${error}`);
   }

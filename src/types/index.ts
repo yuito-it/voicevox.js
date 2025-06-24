@@ -64,3 +64,16 @@ export type SpeakerListData = {
   version: string;
   supportedFeatures?: "ALL" | "SELF_ONLY" | "NOTHING";
 };
+
+export type Speaker = {
+  policy: string;
+  portrait: string;
+  styleInfos: [
+    {
+      id: number;
+      icon: string;
+      portrait?: string;
+      voiceSamples: string[];
+    }
+  ];
+};

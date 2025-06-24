@@ -159,4 +159,5 @@ test("Generate", async () => {
     throw new Error("Audio generation failed, expected Buffer type.");
   }
   fs.writeFileSync(`${__dirname}/generate.wav`, audio);
+  await RPC.disconnect();
 });

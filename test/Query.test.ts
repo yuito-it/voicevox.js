@@ -19,6 +19,7 @@ test("Query getTalkQuery with empty text", async () => {
   } catch (error) {
     expect(error.message).toBe("Text cannot be empty.");
   }
+  await RPC.disconnect();
 });
 
 test("Query getTalkQuery with negative speaker", async () => {
@@ -30,4 +31,5 @@ test("Query getTalkQuery with negative speaker", async () => {
   } catch (error) {
     expect(error.message).toBe("Speaker must be a non-negative integer.");
   }
+  await RPC.disconnect();
 });

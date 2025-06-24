@@ -58,7 +58,7 @@ export const getSpeaker = async (
   speakerUUID: string,
   dataFormat: "base64" | "url" = "base64",
   version?: string | null
-): Promise<Speaker | null> => {
+): Promise<Speaker> => {
   if (!rpc) {
     throw new Error(
       "Voicebox API is not connected. Please call connect() first."

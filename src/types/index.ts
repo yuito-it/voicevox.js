@@ -59,7 +59,7 @@ export type SpeakerStyle = {
 
 export type SpeakerListData = {
   name: string;
-  speaker_uuid: string;
+  speakerUuid: string;
   styles: SpeakerStyle[];
   version: string;
   supportedFeatures?: "ALL" | "SELF_ONLY" | "NOTHING";

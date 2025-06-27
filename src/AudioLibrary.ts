@@ -1,5 +1,10 @@
 import { rpc } from "./rpc";
-import { Speaker, SpeakerListData } from "./types";
+import {
+  Speaker,
+  SpeakerInfoResponce,
+  SpeakerListData,
+  SpeakerStyle,
+} from "./types";
 import { toCamelCaseKeys } from "./utils";
 
 export const getSingers = async (
@@ -66,7 +71,7 @@ export const getSpeaker = async (
   }
 
   try {
-    const response = await rpc.get(`/speaker_info`, {
+    const responseInfo = await rpc.get(`/speaker_info`, {
       params: {
         speaker_uuid: speakerUUID,
         resource_format: dataFormat,
@@ -74,15 +79,22 @@ export const getSpeaker = async (
       },
     });
 
-    if (response.status !== 200) {
+    const responseList = await rpc.get(`/speakers`, {
+      params: {
+        core_version: version,
+      },
+    });
+
+    if (responseInfo.status !== 200 || responseList.status !== 200) {
       throw new Error(
-        `Voicebox API returned status code ${response.status}(${response.statusText})`
+        `Voicebox API returned status code ${responseInfo.status}(${responseInfo.statusText})`
       );
     }
-    const data = toCamelCaseKeys(response.data) as Speaker;
+
+    const dataInfo = toCamelCaseKeys(responseInfo.data) as SpeakerInfoResponce;
     if (dataFormat === "url") {
       const baseUrl = rpc.defaults.baseURL as string;
-      data.styleInfos.map((style) => {
+      dataInfo.styleInfos.map((style) => {
         style.icon = style.icon.replace(/^(http|https):\/\/[^\/]+/, baseUrl);
         style.voiceSamples = style.voiceSamples.map((sample: string) => {
           return sample.replace(/^(http|https):\/\/[^\/]+/, baseUrl);
@@ -91,13 +103,47 @@ export const getSpeaker = async (
           ? style.portrait.replace(/^(http|https):\/\/[^\/]+/, baseUrl)
           : undefined;
       });
-      data.portrait = data.portrait.replace(
+      dataInfo.portrait = dataInfo.portrait.replace(
         /^(http|https):\/\/[^\/]+/,
         baseUrl
       );
     }
 
-    return data;
+    const dataList: SpeakerListData | undefined = (
+      toCamelCaseKeys(responseList.data) as SpeakerListData[]
+    ).find((speaker) => speaker.speakerUuid === speakerUUID);
+
+    if (!dataList) {
+      throw new Error(`Speaker with UUID ${speakerUUID} not found`);
+    }
+
+    const styles: Array<SpeakerStyle> = [];
+
+    const dataListStyles = dataList.styles.sort((a, b) => a.id - b.id);
+    const dataInfoStyles = dataInfo.styleInfos.sort((a, b) => a.id - b.id);
+
+    for (let i = 0; i < dataInfoStyles.length; i++) {
+      styles.push({
+        id: dataInfoStyles[i].id,
+        type: dataListStyles[i].type,
+        portrait: dataInfoStyles[i].portrait || "",
+        name: dataListStyles[i].name,
+        icon: dataInfoStyles[i].icon,
+        voiceSamples: dataInfoStyles[i].voiceSamples,
+      });
+    }
+
+    const returnData: Speaker = {
+      name: dataList.name,
+      speakerUuid: dataList.speakerUuid,
+      policy: dataInfo.policy,
+      portrait: dataInfo.portrait,
+      styles: styles,
+      version: dataList.version,
+      supportedFeatures: dataList.supportedFeatures,
+    };
+
+    return returnData;
   } catch (error) {
     throw new Error(`Failed to fetch speaker: ${error}`);
   }

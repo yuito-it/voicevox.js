@@ -51,7 +51,7 @@ export type SingingSettings = {
   outputStereo: boolean;
 };
 
-export type SpeakerStyle = {
+export type SpeakerListStyleResponce = {
   name: string;
   id: number;
   type: "talk" | "singing_teacher" | "frame_decode" | "sing";
@@ -60,12 +60,12 @@ export type SpeakerStyle = {
 export type SpeakerListData = {
   name: string;
   speakerUuid: string;
-  styles: SpeakerStyle[];
+  styles: SpeakerListStyleResponce[];
   version: string;
   supportedFeatures?: "ALL" | "SELF_ONLY" | "NOTHING";
 };
 
-export type Speaker = {
+export type SpeakerInfoResponce = {
   policy: string;
   portrait: string;
   styleInfos: [
@@ -76,4 +76,23 @@ export type Speaker = {
       voiceSamples: string[];
     }
   ];
+};
+
+export type SpeakerStyle = {
+  name: string;
+  id: number;
+  icon: string;
+  type: "talk" | "singing_teacher" | "frame_decode" | "sing";
+  portrait: string;
+  voiceSamples: string[];
+};
+
+export type Speaker = {
+  name: string;
+  speakerUuid: string;
+  policy: string;
+  portrait: string;
+  styles: SpeakerStyle[];
+  version: string;
+  supportedFeatures?: "ALL" | "SELF_ONLY" | "NOTHING";
 };

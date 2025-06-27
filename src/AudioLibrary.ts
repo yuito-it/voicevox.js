@@ -113,6 +113,10 @@ export const getSpeaker = async (
       toCamelCaseKeys(responseList.data) as SpeakerListData[]
     ).find((speaker) => speaker.speakerUuid === speakerUUID);
 
+    if (!dataInfo) {
+      throw new Error(`Speaker style is missing`);
+    }
+
     if (!dataList) {
       throw new Error(`Speaker with UUID ${speakerUUID} not found`);
     }
@@ -122,14 +126,21 @@ export const getSpeaker = async (
     const dataListStyles = dataList.styles.sort((a, b) => a.id - b.id);
     const dataInfoStyles = dataInfo.styleInfos.sort((a, b) => a.id - b.id);
 
-    for (let i = 0; i < dataInfoStyles.length; i++) {
+    for (
+      let i = 0;
+      i < dataInfoStyles.length && i < dataListStyles.length;
+      i++
+    ) {
+      if (!dataListStyles[i] || !dataInfoStyles[i]) {
+        throw new Error(`Speaker style is missing`);
+      }
       styles.push({
-        id: dataInfoStyles[i].id,
-        type: dataListStyles[i].type,
-        portrait: dataInfoStyles[i].portrait || "",
-        name: dataListStyles[i].name,
-        icon: dataInfoStyles[i].icon,
-        voiceSamples: dataInfoStyles[i].voiceSamples,
+        id: dataInfoStyles[i]!.id,
+        type: dataListStyles[i]!.type,
+        portrait: dataInfoStyles[i]!.portrait || "",
+        name: dataListStyles[i]!.name,
+        icon: dataInfoStyles[i]!.icon,
+        voiceSamples: dataInfoStyles[i]!.voiceSamples,
       });
     }
 
